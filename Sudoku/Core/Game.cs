@@ -59,19 +59,23 @@ namespace Sudoku.Core
 							threeSquare[si].Remove(randomNumber);
 							grid[y][x] = randomNumber;
 							if (y == 8 && x == 8)
-								break;
+							{
+								ShowClues?.Invoke(grid);
+								return;
+							}
 						}
 					}
 				}
 			}
 			while (true);
 
-			ShowClues?.Invoke(grid);
 		}
 
 		public void ShowGridSolution()
 		{
 			ShowSolution?.Invoke(grid);
 		}
+
+
 	}
 }

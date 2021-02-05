@@ -29,12 +29,19 @@ namespace Sudoku.GUI
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.label1 = new System.Windows.Forms.Label();
 			this.cbxClues = new System.Windows.Forms.ComboBox();
 			this.dgvGrid = new System.Windows.Forms.DataGridView();
-			this.btnSolution = new System.Windows.Forms.Button();
-			this.btnNew = new System.Windows.Forms.Button();
 			this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,29 +51,33 @@ namespace Sudoku.GUI
 			this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.btnSolution = new System.Windows.Forms.Button();
+			this.btnNew = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dgvGrid)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(31, 24);
+			this.label1.Location = new System.Drawing.Point(24, 24);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(103, 19);
+			this.label1.Size = new System.Drawing.Size(110, 19);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Clues (Difficult):";
+			this.label1.Text = "Clues (Difficulty):";
 			// 
 			// cbxClues
 			// 
+			this.cbxClues.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cbxClues.FormattingEnabled = true;
 			this.cbxClues.Items.AddRange(new object[] {
             "Most (Hardest)",
             "Medium",
             "Least (Easiest)"});
-			this.cbxClues.Location = new System.Drawing.Point(141, 24);
+			this.cbxClues.Location = new System.Drawing.Point(140, 21);
 			this.cbxClues.Name = "cbxClues";
 			this.cbxClues.Size = new System.Drawing.Size(150, 25);
 			this.cbxClues.TabIndex = 1;
+			this.cbxClues.SelectedIndexChanged += new System.EventHandler(this.cbxClues_SelectedIndexChanged);
 			// 
 			// dgvGrid
 			// 
@@ -89,10 +100,83 @@ namespace Sudoku.GUI
 			this.dgvGrid.MultiSelect = false;
 			this.dgvGrid.Name = "dgvGrid";
 			this.dgvGrid.RowHeadersVisible = false;
-			this.dgvGrid.RowTemplate.Height = 25;
+			this.dgvGrid.RowTemplate.Height = 35;
 			this.dgvGrid.ScrollBars = System.Windows.Forms.ScrollBars.None;
 			this.dgvGrid.Size = new System.Drawing.Size(315, 315);
 			this.dgvGrid.TabIndex = 2;
+			this.dgvGrid.Paint += new System.Windows.Forms.PaintEventHandler(this.dgvGrid_Paint);
+			// 
+			// Column1
+			// 
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.Column1.DefaultCellStyle = dataGridViewCellStyle1;
+			this.Column1.HeaderText = "Column1";
+			this.Column1.Name = "Column1";
+			this.Column1.Width = 35;
+			// 
+			// Column2
+			// 
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.Column2.DefaultCellStyle = dataGridViewCellStyle2;
+			this.Column2.HeaderText = "Column2";
+			this.Column2.Name = "Column2";
+			this.Column2.Width = 35;
+			// 
+			// Column3
+			// 
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.Column3.DefaultCellStyle = dataGridViewCellStyle3;
+			this.Column3.HeaderText = "Column3";
+			this.Column3.Name = "Column3";
+			this.Column3.Width = 35;
+			// 
+			// Column4
+			// 
+			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.Column4.DefaultCellStyle = dataGridViewCellStyle4;
+			this.Column4.HeaderText = "Column4";
+			this.Column4.Name = "Column4";
+			this.Column4.Width = 35;
+			// 
+			// Column5
+			// 
+			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.Column5.DefaultCellStyle = dataGridViewCellStyle5;
+			this.Column5.HeaderText = "Column5";
+			this.Column5.Name = "Column5";
+			this.Column5.Width = 35;
+			// 
+			// Column6
+			// 
+			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.Column6.DefaultCellStyle = dataGridViewCellStyle6;
+			this.Column6.HeaderText = "Column6";
+			this.Column6.Name = "Column6";
+			this.Column6.Width = 35;
+			// 
+			// Column7
+			// 
+			dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.Column7.DefaultCellStyle = dataGridViewCellStyle7;
+			this.Column7.HeaderText = "Column7";
+			this.Column7.Name = "Column7";
+			this.Column7.Width = 35;
+			// 
+			// Column8
+			// 
+			dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.Column8.DefaultCellStyle = dataGridViewCellStyle8;
+			this.Column8.HeaderText = "Column8";
+			this.Column8.Name = "Column8";
+			this.Column8.Width = 35;
+			// 
+			// Column9
+			// 
+			dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.Column9.DefaultCellStyle = dataGridViewCellStyle9;
+			this.Column9.HeaderText = "Column9";
+			this.Column9.Name = "Column9";
+			this.Column9.Width = 35;
 			// 
 			// btnSolution
 			// 
@@ -102,6 +186,7 @@ namespace Sudoku.GUI
 			this.btnSolution.TabIndex = 2;
 			this.btnSolution.Text = "Solution";
 			this.btnSolution.UseVisualStyleBackColor = true;
+			this.btnSolution.Click += new System.EventHandler(this.btnSolution_Click);
 			// 
 			// btnNew
 			// 
@@ -111,60 +196,7 @@ namespace Sudoku.GUI
 			this.btnNew.TabIndex = 3;
 			this.btnNew.Text = "New Game";
 			this.btnNew.UseVisualStyleBackColor = true;
-			// 
-			// Column1
-			// 
-			this.Column1.HeaderText = "Column1";
-			this.Column1.Name = "Column1";
-			this.Column1.Width = 35;
-			// 
-			// Column2
-			// 
-			this.Column2.HeaderText = "Column2";
-			this.Column2.Name = "Column2";
-			this.Column2.Width = 35;
-			// 
-			// Column3
-			// 
-			this.Column3.HeaderText = "Column3";
-			this.Column3.Name = "Column3";
-			this.Column3.Width = 35;
-			// 
-			// Column4
-			// 
-			this.Column4.HeaderText = "Column4";
-			this.Column4.Name = "Column4";
-			this.Column4.Width = 35;
-			// 
-			// Column5
-			// 
-			this.Column5.HeaderText = "Column5";
-			this.Column5.Name = "Column5";
-			this.Column5.Width = 35;
-			// 
-			// Column6
-			// 
-			this.Column6.HeaderText = "Column6";
-			this.Column6.Name = "Column6";
-			this.Column6.Width = 35;
-			// 
-			// Column7
-			// 
-			this.Column7.HeaderText = "Column7";
-			this.Column7.Name = "Column7";
-			this.Column7.Width = 35;
-			// 
-			// Column8
-			// 
-			this.Column8.HeaderText = "Column8";
-			this.Column8.Name = "Column8";
-			this.Column8.Width = 35;
-			// 
-			// Column9
-			// 
-			this.Column9.HeaderText = "Column9";
-			this.Column9.Name = "Column9";
-			this.Column9.Width = 35;
+			this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
 			// 
 			// MainForm
 			// 
@@ -182,6 +214,7 @@ namespace Sudoku.GUI
 			this.Name = "MainForm";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.Text = "Sudoku";
+			this.Load += new System.EventHandler(this.MainForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dgvGrid)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
