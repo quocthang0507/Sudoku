@@ -20,15 +20,15 @@ namespace Sudoku.GUI
 
 		private void Game_ShowSolution(int[][] grid)
 		{
-			for (int y = 0; y <= 8; y++)
-				for (int x = 0; x <= 8; x++)
+			for (int rowIndex = 0; rowIndex < 9; rowIndex++)
+				for (int colIndex = 0; colIndex < 9; colIndex++)
 				{
-					if (dgvGrid.Rows[y].Cells[x].Style.ForeColor == Color.Black)
+					if (dgvGrid.Rows[rowIndex].Cells[colIndex].Style.ForeColor == Color.Black)
 					{
-						if (string.IsNullOrEmpty(dgvGrid.Rows[y].Cells[x].Value.ToString()) || grid[y][x].ToString() != dgvGrid.Rows[y].Cells[x].Value.ToString())
+						if (string.IsNullOrEmpty(dgvGrid.Rows[rowIndex].Cells[colIndex].Value.ToString()) || grid[rowIndex][colIndex].ToString() != dgvGrid.Rows[rowIndex].Cells[colIndex].Value.ToString())
 						{
-							dgvGrid.Rows[y].Cells[x].Style.ForeColor = Color.Blue;
-							dgvGrid.Rows[y].Cells[x].Value = grid[y][x];
+							dgvGrid.Rows[rowIndex].Cells[colIndex].Style.ForeColor = Color.Blue;
+							dgvGrid.Rows[rowIndex].Cells[colIndex].Value = grid[rowIndex][colIndex];
 						}
 					}
 				}
@@ -36,27 +36,27 @@ namespace Sudoku.GUI
 
 		private void Game_ShowClues(int[][] grid)
 		{
-			for (int y = 0; y <= 8; y++)
+			for (int rowIndex = 0; rowIndex < 9; rowIndex++)
 			{
 				List<int> cells = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-				for (int c = 1; c <= 9 - (5 - cbxClues.SelectedIndex); c++)
+				for (int cell = 1; cell <= 9 - (5 - cbxClues.SelectedIndex); cell++)
 				{
 					int randomNumber = cells[random.Next(0, cells.Count)];
 					cells.Remove(randomNumber);
 				}
-				for (int x = 0; x <= 8; x++)
+				for (int colIndex = 0; colIndex < 9; colIndex++)
 				{
-					if (cells.Contains(x + 1))
+					if (cells.Contains(colIndex + 1))
 					{
-						dgvGrid.Rows[y].Cells[x].Value = grid[y][x];
-						dgvGrid.Rows[y].Cells[x].Style.ForeColor = Color.Red;
-						dgvGrid.Rows[y].Cells[x].ReadOnly = true;
+						dgvGrid.Rows[rowIndex].Cells[colIndex].Value = grid[rowIndex][colIndex];
+						dgvGrid.Rows[rowIndex].Cells[colIndex].Style.ForeColor = Color.Red;
+						dgvGrid.Rows[rowIndex].Cells[colIndex].ReadOnly = true;
 					}
 					else
 					{
-						dgvGrid.Rows[y].Cells[x].Value = "";
-						dgvGrid.Rows[y].Cells[x].Style.ForeColor = Color.Black;
-						dgvGrid.Rows[y].Cells[x].ReadOnly = false;
+						dgvGrid.Rows[rowIndex].Cells[colIndex].Value = "";
+						dgvGrid.Rows[rowIndex].Cells[colIndex].Style.ForeColor = Color.Black;
+						dgvGrid.Rows[rowIndex].Cells[colIndex].ReadOnly = false;
 					}
 				}
 			}
@@ -93,10 +93,6 @@ namespace Sudoku.GUI
 		{
 			btnNew.PerformClick();
 		}
-
-		#endregion
-
-		#region Methods
 
 		#endregion
 	}
