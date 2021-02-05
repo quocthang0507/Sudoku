@@ -41,33 +41,25 @@ namespace Sudoku.Core
 
 		private void CreateNewGame()
 		{
-			do
+			InitializeLists();
+			for (int rowIndex = 0; rowIndex < 9; rowIndex++)
 			{
-				InitializeLists();
-				for (int rowIndex = 0; rowIndex < 9; rowIndex++)
+				for (int colIndex = 0; colIndex < 9; colIndex++)
 				{
-					for (int colIndex = 0; colIndex < 9; colIndex++)
+					grid[rowIndex][colIndex] = default;
+					int si = (rowIndex / 3) * 3 + (colIndex / 3);
+					int[] useful = horizontalRows[rowIndex].Intersect(verticalRows[colIndex]).Intersect(threeSquare[si]).ToArray();
+					if (useful.Any())
 					{
-						grid[rowIndex][colIndex] = default;
-						int si = (rowIndex / 3) * 3 + (colIndex / 3);
-						int[] useful = horizontalRows[rowIndex].Intersect(verticalRows[colIndex]).Intersect(threeSquare[si]).ToArray();
-						if (useful.Any())
-						{
-							int randomNumber = useful[random.Next(0, useful.Count())];
-							horizontalRows[rowIndex].Remove(randomNumber);
-							verticalRows[colIndex].Remove(randomNumber);
-							threeSquare[si].Remove(randomNumber);
-							grid[rowIndex][colIndex] = randomNumber;
-							if (rowIndex == 8 && colIndex == 8)
-							{
-								ShowClues?.Invoke(grid);
-								return;
-							}
-						}
+						int randomNumber = useful[random.Next(0, useful.Length)];
+						horizontalRows[rowIndex].Remove(randomNumber);
+						verticalRows[colIndex].Remove(randomNumber);
+						threeSquare[si].Remove(randomNumber);
+						grid[rowIndex][colIndex] = randomNumber;
 					}
 				}
 			}
-			while (true);
+			ShowClues?.Invoke(grid);
 		}
 
 		public void ShowGridSolution()

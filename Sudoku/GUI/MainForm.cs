@@ -11,7 +11,7 @@ namespace Sudoku.GUI
 	public partial class MainForm : Form
 	{
 		private readonly Random random = new Random();
-		private Game game = new Game();
+		private readonly Game game = new Game();
 
 		public MainForm()
 		{
@@ -104,23 +104,14 @@ namespace Sudoku.GUI
 				dgvGrid.Width = width;
 				dgvGrid.Height = height;
 				dgvGrid.DrawToBitmap(bitmap, new Rectangle(0, 0, width, height));
-				ImageFormat format;
 				string ext = Path.GetExtension(saveFileDialog.FileName);
-				switch (ext)
+				ImageFormat format = ext switch
 				{
-					case ".jpg":
-						format = ImageFormat.Jpeg;
-						break;
-					case ".bmp":
-						format = ImageFormat.Bmp;
-						break;
-					case ".png":
-						format = ImageFormat.Png;
-						break;
-					default:
-						format = ImageFormat.Jpeg;
-						break;
-				}
+					".jpg" => ImageFormat.Jpeg,
+					".bmp" => ImageFormat.Bmp,
+					".png" => ImageFormat.Png,
+					_ => ImageFormat.Jpeg,
+				};
 				bitmap.Save(saveFileDialog.FileName, format);
 				dgvGrid.Width = width / 3;
 				dgvGrid.Height = height / 3;

@@ -124,7 +124,7 @@ namespace Sudoku.GUI
 			this.Column2.DefaultCellStyle = dataGridViewCellStyle2;
 			this.Column2.HeaderText = "Column2";
 			this.Column2.Name = "Column2";
-			this.Column2.Width = 34;
+			this.Column2.Width = 35;
 			// 
 			// Column3
 			// 
@@ -148,7 +148,7 @@ namespace Sudoku.GUI
 			this.Column5.DefaultCellStyle = dataGridViewCellStyle5;
 			this.Column5.HeaderText = "Column5";
 			this.Column5.Name = "Column5";
-			this.Column5.Width = 34;
+			this.Column5.Width = 35;
 			// 
 			// Column6
 			// 
@@ -172,7 +172,7 @@ namespace Sudoku.GUI
 			this.Column8.DefaultCellStyle = dataGridViewCellStyle8;
 			this.Column8.HeaderText = "Column8";
 			this.Column8.Name = "Column8";
-			this.Column8.Width = 34;
+			this.Column8.Width = 35;
 			// 
 			// Column9
 			// 
@@ -229,10 +229,12 @@ namespace Sudoku.GUI
 			this.Controls.Add(this.cbxClues);
 			this.Controls.Add(this.label1);
 			this.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.Name = "MainForm";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Sudoku";
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dgvGrid)).EndInit();
