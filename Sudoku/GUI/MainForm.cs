@@ -38,10 +38,10 @@ namespace Sudoku.GUI
 		{
 			for (int y = 0; y <= 8; y++)
 			{
-				var cells = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+				List<int> cells = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 				for (int c = 1; c <= 9 - (5 - cbxClues.SelectedIndex); c++)
 				{
-					var randomNumber = cells[random.Next(0, cells.Count)];
+					int randomNumber = cells[random.Next(0, cells.Count)];
 					cells.Remove(randomNumber);
 				}
 				for (int x = 0; x <= 8; x++)

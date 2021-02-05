@@ -68,14 +68,11 @@ namespace Sudoku.Core
 				}
 			}
 			while (true);
-
 		}
 
 		public void ShowGridSolution()
 		{
 			ShowSolution?.Invoke(grid);
 		}
-
-
 	}
 }
