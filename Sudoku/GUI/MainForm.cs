@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Sudoku.GUI
@@ -16,6 +18,16 @@ namespace Sudoku.GUI
 			InitializeComponent();
 			game.ShowClues += Game_ShowClues;
 			game.ShowSolution += Game_ShowSolution;
+		}
+
+		#region Events
+
+		private void MainForm_Load(object sender, System.EventArgs e)
+		{
+			dgvGrid.Rows.Add(9);
+			Core.AutoSize.ResizeDataGridView(ref dgvGrid);
+			cbxClues.SelectedIndex = 0;
+			btnNew.PerformClick();
 		}
 
 		private void Game_ShowSolution(int[][] grid)
@@ -62,15 +74,6 @@ namespace Sudoku.GUI
 			}
 		}
 
-		#region Events
-
-		private void MainForm_Load(object sender, System.EventArgs e)
-		{
-			dgvGrid.Rows.Add(9);
-			cbxClues.SelectedIndex = 0;
-			btnNew.PerformClick();
-		}
-
 		private void btnSolution_Click(object sender, System.EventArgs e)
 		{
 			game.ShowGridSolution();
@@ -83,10 +86,7 @@ namespace Sudoku.GUI
 
 		private void dgvGrid_Paint(object sender, PaintEventArgs e)
 		{
-			e.Graphics.DrawLine(new Pen(Color.Black, 2), 105, 0, 105, 315);
-			e.Graphics.DrawLine(new Pen(Color.Black, 2), 210, 0, 210, 315);
-			e.Graphics.DrawLine(new Pen(Color.Black, 2), 0, 105, 315, 105);
-			e.Graphics.DrawLine(new Pen(Color.Black, 2), 0, 210, 315, 210);
+			Core.AutoSize.PaintBoldStrokes(ref e, dgvGrid.Height);
 		}
 
 		private void cbxClues_SelectedIndexChanged(object sender, EventArgs e)
@@ -94,6 +94,48 @@ namespace Sudoku.GUI
 			btnNew.PerformClick();
 		}
 
+		private void btnExport_Click(object sender, EventArgs e)
+		{
+			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				int height = dgvGrid.Height * 3;
+				int width = dgvGrid.Width * 3;
+				Bitmap bitmap = new Bitmap(width, height);
+				dgvGrid.Width = width;
+				dgvGrid.Height = height;
+				dgvGrid.DrawToBitmap(bitmap, new Rectangle(0, 0, width, height));
+				ImageFormat format;
+				string ext = Path.GetExtension(saveFileDialog.FileName);
+				switch (ext)
+				{
+					case ".jpg":
+						format = ImageFormat.Jpeg;
+						break;
+					case ".bmp":
+						format = ImageFormat.Bmp;
+						break;
+					case ".png":
+						format = ImageFormat.Png;
+						break;
+					default:
+						format = ImageFormat.Jpeg;
+						break;
+				}
+				bitmap.Save(saveFileDialog.FileName, format);
+				dgvGrid.Width = width / 3;
+				dgvGrid.Height = height / 3;
+			}
+		}
+
+		private void dgvGrid_SizeChanged(object sender, EventArgs e)
+		{
+			if (dgvGrid.Height == dgvGrid.Width)
+			{
+				// Call datagridview's paint event
+				dgvGrid.Refresh();
+				Core.AutoSize.ResizeDataGridView(ref dgvGrid);
+			}
+		}
 		#endregion
 	}
 }

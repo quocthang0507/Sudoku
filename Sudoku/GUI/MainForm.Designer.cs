@@ -53,6 +53,8 @@ namespace Sudoku.GUI
 			this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnSolution = new System.Windows.Forms.Button();
 			this.btnNew = new System.Windows.Forms.Button();
+			this.btnExport = new System.Windows.Forms.Button();
+			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
 			((System.ComponentModel.ISupportInitialize)(this.dgvGrid)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -96,7 +98,7 @@ namespace Sudoku.GUI
             this.Column7,
             this.Column8,
             this.Column9});
-			this.dgvGrid.Location = new System.Drawing.Point(9, 80);
+			this.dgvGrid.Location = new System.Drawing.Point(9, 71);
 			this.dgvGrid.MultiSelect = false;
 			this.dgvGrid.Name = "dgvGrid";
 			this.dgvGrid.RowHeadersVisible = false;
@@ -104,6 +106,8 @@ namespace Sudoku.GUI
 			this.dgvGrid.ScrollBars = System.Windows.Forms.ScrollBars.None;
 			this.dgvGrid.Size = new System.Drawing.Size(315, 315);
 			this.dgvGrid.TabIndex = 2;
+			this.dgvGrid.TabStop = false;
+			this.dgvGrid.SizeChanged += new System.EventHandler(this.dgvGrid_SizeChanged);
 			this.dgvGrid.Paint += new System.Windows.Forms.PaintEventHandler(this.dgvGrid_Paint);
 			// 
 			// Column1
@@ -120,7 +124,7 @@ namespace Sudoku.GUI
 			this.Column2.DefaultCellStyle = dataGridViewCellStyle2;
 			this.Column2.HeaderText = "Column2";
 			this.Column2.Name = "Column2";
-			this.Column2.Width = 35;
+			this.Column2.Width = 34;
 			// 
 			// Column3
 			// 
@@ -144,7 +148,7 @@ namespace Sudoku.GUI
 			this.Column5.DefaultCellStyle = dataGridViewCellStyle5;
 			this.Column5.HeaderText = "Column5";
 			this.Column5.Name = "Column5";
-			this.Column5.Width = 35;
+			this.Column5.Width = 34;
 			// 
 			// Column6
 			// 
@@ -168,7 +172,7 @@ namespace Sudoku.GUI
 			this.Column8.DefaultCellStyle = dataGridViewCellStyle8;
 			this.Column8.HeaderText = "Column8";
 			this.Column8.Name = "Column8";
-			this.Column8.Width = 35;
+			this.Column8.Width = 34;
 			// 
 			// Column9
 			// 
@@ -180,23 +184,38 @@ namespace Sudoku.GUI
 			// 
 			// btnSolution
 			// 
-			this.btnSolution.Location = new System.Drawing.Point(88, 408);
+			this.btnSolution.Location = new System.Drawing.Point(115, 408);
 			this.btnSolution.Name = "btnSolution";
 			this.btnSolution.Size = new System.Drawing.Size(75, 30);
-			this.btnSolution.TabIndex = 2;
+			this.btnSolution.TabIndex = 3;
 			this.btnSolution.Text = "Solution";
 			this.btnSolution.UseVisualStyleBackColor = true;
 			this.btnSolution.Click += new System.EventHandler(this.btnSolution_Click);
 			// 
 			// btnNew
 			// 
-			this.btnNew.Location = new System.Drawing.Point(169, 408);
+			this.btnNew.Location = new System.Drawing.Point(24, 408);
 			this.btnNew.Name = "btnNew";
 			this.btnNew.Size = new System.Drawing.Size(75, 30);
-			this.btnNew.TabIndex = 3;
+			this.btnNew.TabIndex = 2;
 			this.btnNew.Text = "New Game";
 			this.btnNew.UseVisualStyleBackColor = true;
 			this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+			// 
+			// btnExport
+			// 
+			this.btnExport.Location = new System.Drawing.Point(206, 408);
+			this.btnExport.Name = "btnExport";
+			this.btnExport.Size = new System.Drawing.Size(98, 30);
+			this.btnExport.TabIndex = 4;
+			this.btnExport.Text = "Export image";
+			this.btnExport.UseVisualStyleBackColor = true;
+			this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+			// 
+			// saveFileDialog
+			// 
+			this.saveFileDialog.Filter = "JPEG Image|*.jpg|Bitmap Image|*.bmp|Portable Network Graphics|*.png";
+			this.saveFileDialog.Title = "Choose folder to save this image";
 			// 
 			// MainForm
 			// 
@@ -204,6 +223,7 @@ namespace Sudoku.GUI
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(334, 461);
 			this.Controls.Add(this.btnNew);
+			this.Controls.Add(this.btnExport);
 			this.Controls.Add(this.btnSolution);
 			this.Controls.Add(this.dgvGrid);
 			this.Controls.Add(this.cbxClues);
@@ -237,6 +257,8 @@ namespace Sudoku.GUI
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+		private System.Windows.Forms.Button btnExport;
+		private System.Windows.Forms.SaveFileDialog saveFileDialog;
 	}
 }
 

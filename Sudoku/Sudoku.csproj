@@ -5,6 +5,16 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>sudoku_icon.ico</ApplicationIcon>
+    <RepositoryUrl>https://github.com/quocthang0507/Sudoku</RepositoryUrl>
+    <PackageIcon>sudoku.png</PackageIcon>
+    <Description>.NET 5.0 Windows Forms Sudoku (C#)</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="sudoku.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
