@@ -1,5 +1,4 @@
-﻿using Sudoku.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -11,7 +10,7 @@ namespace Sudoku.GUI
 	public partial class MainForm : Form
 	{
 		private readonly Random random = new Random();
-		private readonly Game game = new Game();
+		private readonly Core.Sudoku game = new Core.Sudoku();
 
 		public MainForm()
 		{

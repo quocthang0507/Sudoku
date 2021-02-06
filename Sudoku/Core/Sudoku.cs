@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Sudoku.Core
 {
-	public class Game
+	public class Sudoku
 	{
 		/// <summary>
 		/// Hiển thị các gợi ý
@@ -99,7 +99,7 @@ namespace Sudoku.Core
 
 		private void ExportGridToFile()
 		{
-			using var writer = new StreamWriter("debug.txt", false);
+			using StreamWriter writer = new StreamWriter("debug.txt", false);
 			for (int i = 0; i < 9; i++)
 			{
 				for (int j = 0; j < 9; j++)

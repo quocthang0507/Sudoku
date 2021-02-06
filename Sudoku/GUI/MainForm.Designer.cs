@@ -85,6 +85,7 @@ namespace Sudoku.GUI
 			// 
 			this.dgvGrid.AllowUserToAddRows = false;
 			this.dgvGrid.AllowUserToDeleteRows = false;
+			this.dgvGrid.AllowUserToOrderColumns = true;
 			this.dgvGrid.AllowUserToResizeColumns = false;
 			this.dgvGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvGrid.ColumnHeadersVisible = false;

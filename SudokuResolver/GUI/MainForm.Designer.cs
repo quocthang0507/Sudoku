@@ -1,5 +1,5 @@
 ﻿
-namespace SudokuResolver
+namespace SudokuResolver.GUI
 {
 	partial class MainForm
 	{
