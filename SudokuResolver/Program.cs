@@ -1,10 +1,11 @@
+using SudokuResolver.GUI;
 using System;
 using System.Windows.Forms;
 
 namespace SudokuResolver
 {
 	/// <summary>
-	/// https://github.com/microsoftarchive/msdn-code-gallery-community-s-z/tree/master/Sudoku/%5BC%23%5D-Sudoku/C%23
+	/// https://www.c-sharpcorner.com/blogs/sudoku-solver
 	/// </summary>
 	static class Program
 	{
