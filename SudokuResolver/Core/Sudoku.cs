@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace SudokuResolver.Core
 {
@@ -41,6 +42,41 @@ namespace SudokuResolver.Core
 			Solve(Grid);
 		}
 
+		public void ExportGridToFile(string filename = "debug.txt")
+		{
+			using StreamWriter writer = new StreamWriter(filename, false);
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					writer.Write(Grid[i][j].ToString() + '\t');
+					if ((j + 1) % 3 == 0)
+						writer.Write('\t');
+				}
+				writer.WriteLine();
+				if ((i + 1) % 3 == 0)
+					writer.Write('\n');
+			}
+			writer.Close();
+		}
+
+		private bool IsValid(int[][] grid, int rowIndex, int colIndex, int n)
+		{
+			for (int i = 0; i < grid.Length; i++)
+			{
+				// Check row
+				if (grid[i][colIndex] != default && grid[i][colIndex] == n)
+					return false;
+				// Check column
+				if (grid[rowIndex][i] != default && grid[rowIndex][i] == n)
+					return false;
+				// Check three square
+				if (grid[3 * (rowIndex / 3) + i / 3][3 * (colIndex / 3) + i % 3] != default && grid[3 * (rowIndex / 3) + i / 3][3 * (colIndex / 3) + i % 3] == n)
+					return false;
+			}
+			return true;
+		}
+
 		private bool Solve(int[][] grid)
 		{
 			for (int rowIndex = 0; rowIndex < grid.Length; rowIndex++)
@@ -63,23 +99,6 @@ namespace SudokuResolver.Core
 						return false;
 					}
 				}
-			}
-			return true;
-		}
-
-		private bool IsValid(int[][] grid, int rowIndex, int colIndex, int n)
-		{
-			for (int i = 0; i < grid.Length; i++)
-			{
-				// Check row
-				if (grid[i][colIndex] != default && grid[i][colIndex] == n)
-					return false;
-				// Check column
-				if (grid[rowIndex][i] != default && grid[rowIndex][i] == n)
-					return false;
-				// Check three square
-				if (grid[3 * (rowIndex / 3) + i / 3][3 * (colIndex / 3) + i % 3] != default && grid[3 * (rowIndex / 3) + i / 3][3 * (colIndex / 3) + i % 3] == n)
-					return false;
 			}
 			return true;
 		}
