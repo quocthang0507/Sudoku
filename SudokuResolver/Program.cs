@@ -1,11 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SudokuResolver
 {
+	/// <summary>
+	/// https://github.com/microsoftarchive/msdn-code-gallery-community-s-z/tree/master/Sudoku/%5BC%23%5D-Sudoku/C%23
+	/// </summary>
 	static class Program
 	{
 		/// <summary>

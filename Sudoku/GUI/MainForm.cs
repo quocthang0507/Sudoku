@@ -37,10 +37,18 @@ namespace Sudoku.GUI
 				{
 					if (dgvGrid.Rows[rowIndex].Cells[colIndex].Style.ForeColor == Color.Black)
 					{
-						if (string.IsNullOrEmpty(dgvGrid.Rows[rowIndex].Cells[colIndex].Value.ToString()) || grid[rowIndex][colIndex].ToString() != dgvGrid.Rows[rowIndex].Cells[colIndex].Value.ToString())
+						if (string.IsNullOrEmpty(dgvGrid.Rows[rowIndex].Cells[colIndex].Value.ToString()))
 						{
 							dgvGrid.Rows[rowIndex].Cells[colIndex].Style.ForeColor = Color.Blue;
 							dgvGrid.Rows[rowIndex].Cells[colIndex].Value = grid[rowIndex][colIndex];
+						}
+						else
+						{
+							if (grid[rowIndex][colIndex].ToString() != dgvGrid.Rows[rowIndex].Cells[colIndex].Value.ToString())
+							{
+								dgvGrid.Rows[rowIndex].Cells[colIndex].Style.ForeColor = Color.Blue;
+								dgvGrid.Rows[rowIndex].Cells[colIndex].Value = grid[rowIndex][colIndex];
+							}
 						}
 					}
 				}

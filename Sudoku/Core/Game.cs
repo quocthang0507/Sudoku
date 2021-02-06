@@ -1,24 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Sudoku.Core
 {
-	/// <summary>
-	/// From https://github.com/dotnet/samples/blob/master/windowsforms/Sudoku/VB/sudoku/core/Game.vb
-	/// </summary>
 	public class Game
 	{
+		/// <summary>
+		/// Hiển thị các gợi ý
+		/// </summary>
+		public event ShowCluesEventHandler ShowClues;
+		/// <summary>
+		/// Hiển thị lời giải cho bài toán
+		/// </summary>
+		public event ShowSolutionEventHandler ShowSolution;
 		public delegate void ShowCluesEventHandler(int[][] grid);
 		public delegate void ShowSolutionEventHandler(int[][] grid);
-		public event ShowCluesEventHandler ShowClues;
-		public event ShowSolutionEventHandler ShowSolution;
 
-		private readonly List<int>[] horizontalRows = new List<int>[9];
-		private readonly List<int>[] verticalRows = new List<int>[9];
-		private readonly List<int>[] threeSquare = new List<int>[9];
+		/// <summary>
+		/// Hàng ngang (9x1)
+		/// </summary>
+		private readonly List<int>[] HRow = new
+			List<int>[9];
+		/// <summary>
+		/// Hàng dọc (1x9)
+		/// </summary>
+		private readonly List<int>[] VRow = new List<int>[9];
+		/// <summary>
+		/// Ô 3x3 trong 3x3
+		/// </summary>
+		private readonly List<int>[] ThreeSquare = new List<int>[9];
+		/// <summary>
+		/// Toàn bộ các ô số
+		/// </summary>
 		private readonly int[][] grid = new int[9][];
-
+		/// <summary>
+		/// Sinh số ngẫu nhiên
+		/// </summary>
 		private Random random;
 
 		public void NewGame(Random random)
@@ -31,9 +50,9 @@ namespace Sudoku.Core
 		{
 			for (int x = 0; x < 9; x++)
 			{
-				horizontalRows[x] = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
-				verticalRows[x] = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
-				threeSquare[x] = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+				HRow[x] = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+				VRow[x] = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+				ThreeSquare[x] = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 				int[] row = new int[9];
 				grid[x] = row;
 			}
@@ -41,30 +60,59 @@ namespace Sudoku.Core
 
 		private void CreateNewGame()
 		{
-			InitializeLists();
-			for (int rowIndex = 0; rowIndex < 9; rowIndex++)
+			while (true)
 			{
-				for (int colIndex = 0; colIndex < 9; colIndex++)
+			begin:
+				InitializeLists();
+				for (int rowIndex = 0; rowIndex < 9; rowIndex++)
 				{
-					grid[rowIndex][colIndex] = default;
-					int si = (rowIndex / 3) * 3 + (colIndex / 3);
-					int[] useful = horizontalRows[rowIndex].Intersect(verticalRows[colIndex]).Intersect(threeSquare[si]).ToArray();
-					if (useful.Any())
+					for (int colIndex = 0; colIndex < 9; colIndex++)
 					{
-						int randomNumber = useful[random.Next(0, useful.Length)];
-						horizontalRows[rowIndex].Remove(randomNumber);
-						verticalRows[colIndex].Remove(randomNumber);
-						threeSquare[si].Remove(randomNumber);
-						grid[rowIndex][colIndex] = randomNumber;
+						grid[rowIndex][colIndex] = default;
+						int si = (rowIndex / 3) * 3 + (colIndex / 3);
+						int[] useful = HRow[rowIndex].Intersect(VRow[colIndex]).Intersect(ThreeSquare[si]).ToArray();
+						if (useful.Any())
+						{
+							int randomNumber = useful[random.Next(0, useful.Length)];
+							HRow[rowIndex].Remove(randomNumber);
+							VRow[colIndex].Remove(randomNumber);
+							ThreeSquare[si].Remove(randomNumber);
+							grid[rowIndex][colIndex] = randomNumber;
+							if (rowIndex == 8 & colIndex == 8)
+								goto done;
+						}
+						else
+							goto begin;
 					}
 				}
 			}
+		done:
 			ShowClues?.Invoke(grid);
+			// For debugging
+			//ExportGridToFile();
 		}
 
 		public void ShowGridSolution()
 		{
 			ShowSolution?.Invoke(grid);
+		}
+
+		private void ExportGridToFile()
+		{
+			using var writer = new StreamWriter("debug.txt", false);
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					writer.Write(grid[i][j].ToString() + '\t');
+					if ((j + 1) % 3 == 0)
+						writer.Write('\t');
+				}
+				writer.WriteLine();
+				if ((i + 1) % 3 == 0)
+					writer.Write('\n');
+			}
+			writer.Close();
 		}
 	}
 }
