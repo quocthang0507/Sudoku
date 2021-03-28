@@ -105,8 +105,8 @@ namespace Sudoku.GUI
 		{
 			if (saveFileDialog.ShowDialog() == DialogResult.OK)
 			{
-				int height = dgvGrid.Height * 3;
-				int width = dgvGrid.Width * 3;
+				int height = dgvGrid.Height;
+				int width = dgvGrid.Width;
 				Bitmap bitmap = new Bitmap(width, height);
 				dgvGrid.Width = width;
 				dgvGrid.Height = height;
@@ -120,8 +120,6 @@ namespace Sudoku.GUI
 					_ => ImageFormat.Jpeg,
 				};
 				bitmap.Save(saveFileDialog.FileName, format);
-				dgvGrid.Width = width / 3;
-				dgvGrid.Height = height / 3;
 			}
 		}
 
